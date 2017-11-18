@@ -14,4 +14,5 @@ PARA COMPILAR:
 1. gcc traductor.c -o json
 
 PARA EJECUTAR:
+
 2. ./json fuente.txt
