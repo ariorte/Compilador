@@ -1,11 +1,11 @@
-//librería JSON creada
-#include "json.h"
+/*===================Librería(s)==============*/
+#include "lexico.h"
+/*============================================*/
 
 n aux = NULL;
 n nodop = NULL;
 
-// Inserta en la lista el token recibido
-
+/*==============Inserta en la lista el token recibido=============*/
 void insertar(token ele){
 	n nuevo = (nodo*) malloc(sizeof(nodo));
     
@@ -20,6 +20,7 @@ void insertar(token ele){
 		aux->sgte = nuevo;
 	}
 }
+/*=================================================================*/
 
 token extraer(){
 	aux = nodop;

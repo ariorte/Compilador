@@ -1,24 +1,28 @@
-//librería JSON creada
-#include "json.h"
+/*======================Librería(s) incluida(s)===========*/
+#include "lexico.h"
+/*========================================================*/
 
-//Archivo que se generará como salida del proceso del lexer de JSON
-
+/*===============Archivo generado como salida al analizar la entrada========*/
 FILE *salida;
+/*==========================================================================*/
 
 char msj[5*TAMLEX];
 char id[TAMLEX];
 int numlinea = 1;
 
-//Función que se utilizar para imprimir detalles de errores por línea
+/*======Procedimiento para imprimir error por línea============*/
 void error_lexico(int numlinea,char* mensaje){
 	printf("Linea: %d. Error Lexico: %s\n",numlinea,mensaje);
 }
-//Funcion para mprimir detalle lexico
+/*=======================================================*/
+
+/*========Procedimiento para imprimir detalle lexico===========*/
 void detalle(int numlinea,char* componlexico,char* id){
     printf("Linea: %d - componente lexico: %s - lexema: %s \n",numlinea,componlexico,id);
 }
+/*=======================================================*/
 
-//Función que analizará cada token que posee el archivo que se pasa
+/*Procedimiento que analizará cada token del archivo recibido==========*/
 void lexer(FILE* archivo){
    token t;
 	int i = 0;
@@ -61,7 +65,7 @@ void lexer(FILE* archivo){
 		else if(c == '{'){
             id[0] = c;
             id[1] = '\0';
-			fputs("L_LLAVE ",salida);
+			fputs("L_LLAVE",salida);
 			strcpy(t.lexema,id);
             t.complexico = L_LLAVE;
             t.numlinea = numlinea;
@@ -101,7 +105,7 @@ void lexer(FILE* archivo){
             detalle(numlinea,"DOS_PUNTOS",id);
             insertar(t);
 		}
-        //Compruebo si es String
+        //Compruebo si es string
 		else if(c == '"'){
 			ungetc(c,archivo);
 			estado = 1;
@@ -139,7 +143,7 @@ void lexer(FILE* archivo){
                 strcpy(t.lexema,id);
                 t.complexico = STRING;
                 t.numlinea = numlinea;
-                detalle(numlinea,"STRING",id);
+                detalle(numlinea,"STRING ",id);
                 insertar(t);
 			}
 			
@@ -177,7 +181,7 @@ void lexer(FILE* archivo){
                 insertar(t);
             }
             else if (strcmp(id,"null")==0 || strcmp(id,"NULL")==0){
-                fputs("PR_NULL ",salida);
+                fputs("PR_NULL",salida);
                 strcpy(t.lexema,id);
                 t.complexico = PR_NULL;
                 t.numlinea = numlinea;
@@ -300,7 +304,7 @@ void lexer(FILE* archivo){
                         strcpy(t.lexema,id);
                         t.complexico = NUMBER;
                         t.numlinea = numlinea;
-                        detalle(numlinea,"NUMBER",id);
+                        detalle(numlinea,"NUMBER ",id);
                         insertar(t);
 						break;
 					case -1:
@@ -318,6 +322,8 @@ void lexer(FILE* archivo){
     t.numlinea = numlinea;
     insertar(t);
 }
+/*=============================================================================*/
+
 /*
  Abre el archivo que se debe indicar al ejecutar el programa
  Directamente se ejecuta la función LEXER() si existe este archivo.
@@ -326,12 +332,22 @@ FILE *archivo;
 
 int main(int argc, char* args[]){
     
-	if ((archivo=fopen(args[1],"rt"))){
-        lexer(archivo);
+    if(argc > 1)
+	{
+		archivo=fopen(args[1],"rt");
+		if (!archivo)
+		{
+			printf("Archivo no encontrado.\n");
+			exit(1);
+		}else{
+			lexer(archivo);
+		}
+		fclose(archivo);
+		fclose(salida);
+	}else{
+		printf("Debe pasar como parametro el path al archivo fuente.\n");
+		exit(1);
 	}
-	else{
-		printf("Error no se pudo abrir el archivo solicitado\n");
-	}
-	fclose(archivo);
+    
     return 0;
 }
