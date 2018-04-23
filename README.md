@@ -1,6 +1,5 @@
 # Compiladores
-Desarrollo de un compilador como trabajo práctico para la UNA-FP.
+Desarrollo de un compilador como trabajo práctico para la U.N.A. F.P.
 
 # Realizado por:
-JOSÉ FABRICIO AQUINO PANDO<br>
 ADALBERTO ARIEL ORTEGA CARDOZO

@@ -1,10 +1,12 @@
-//Librerias a ser utilizadas
+/*=====================Librería(s) incluidas=================*/
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
 #include<ctype.h>
+/*===========================================================*/
 
-//Componentes lexicos y constantes de JSON
+/*=========================Componentes Léxicos===============*/
+// Código
 #define L_CORCHETE 256
 #define R_CORCHETE 257
 #define L_LLAVE 258
@@ -16,11 +18,13 @@
 #define PR_TRUE 264
 #define PR_FALSE 265
 #define PR_NULL 266
-#define EPSILON 267
+// Fin código
+//#define EPSILON 267
 #define TAMLEX 60
 #define TAMBUFF 30
+/*=============================================================*/
 
-//Estructuras
+/*==================Estructuras================================*/
 typedef struct {
 	int complexico;
 	char lexema[TAMLEX];
@@ -33,11 +37,13 @@ typedef struct nodo{
 }nodo;
 
 typedef struct nodo* n;
+/*=============================================================*/
 
-//Prototipos
+/*==================Prototipos================================*/
 void insertar(token);
 token extraer();
 void listar();
 int esta_vacia();
 void lexer(FILE*);
 void error_lexico(int,char*);
+/*============================================================*/
