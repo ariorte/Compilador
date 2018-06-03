@@ -220,7 +220,7 @@ int main (int argc,char* args[]){
         }
         sigLex();
         json();
-		archivoXML=fopen("output.xml","a");
+		archivoXML=fopen("output.xml","w");
         if(aceptar){
             fclose(archivo);
             archivo=fopen(args[1],"rt");
